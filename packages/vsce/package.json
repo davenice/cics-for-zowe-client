@@ -464,7 +464,7 @@
           "group": ""
         },
         {
-          "when": "view == cics-view && viewItem =~ /^cicsregion\\./",
+          "when": "view == cics-view && viewItem =~ /^cicsregion\\./ && viewItem =~ /.*\\.active\\..*/",
           "command": "cics-extension-for-zowe.showRegionParameters",
           "group": ""
         },
@@ -896,6 +896,7 @@
     "@zowe/core-for-zowe-sdk": "^8.0.0",
     "@zowe/zowe-explorer-api": "^3.0.2",
     "axios": "^1.6.7",
+    "typescript": "^5.6.3",
     "xml-js": "~1.6.11"
   }
 }

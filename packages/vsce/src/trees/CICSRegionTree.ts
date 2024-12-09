@@ -56,6 +56,7 @@ export class CICSRegionTree extends TreeItem {
       this.collapsibleState = TreeItemCollapsibleState.None;
       this.iconPath = getIconPathInResources("region-dark-disabled.svg", "region-light-disabled.svg");
     } else {
+      this.contextValue += ".active"
       this.children = [
         new CICSProgramTree(this),
         new CICSTransactionTree(this),
