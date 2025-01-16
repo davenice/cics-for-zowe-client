@@ -23,6 +23,7 @@ import {
   getShowTCPIPServiceAttributesCommand,
   getShowURIMapAttributesCommand,
   getShowRegionAttributes,
+  getShowRegionLogs,
   getShowTransactionAttributesCommand,
   getShowLocalFileAttributesCommand,
   getShowTaskAttributesCommand,
@@ -502,6 +503,7 @@ export async function activate(context: ExtensionContext) {
     getPurgeTaskCommand(treeDataProv, treeview),
 
     getShowRegionAttributes(treeview),
+    getShowRegionLogs(treeview),
     getShowProgramAttributesCommand(treeview),
     getShowLibraryAttributesCommand(treeview),
     getShowLibraryDatasetsAttributesCommand(treeview),
