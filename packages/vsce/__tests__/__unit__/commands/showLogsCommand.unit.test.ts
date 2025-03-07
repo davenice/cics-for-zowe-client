@@ -9,11 +9,11 @@
  *
  */
 
-import { imperative } from "@zowe/zowe-explorer-api";
+import { getResource, ICMCIApiResponse } from "@zowe/cics-for-zowe-sdk";
 import { IProfileLoaded } from "@zowe/imperative";
+import { imperative, ZoweVsCodeExtension } from "@zowe/zowe-explorer-api";
 import { CICSRegionTree } from "../../../src/trees/CICSRegionTree";
 import * as globalMocks from "../../__utils__/globalMocks";
-import { getResource, ICMCIApiResponse } from "@zowe/cics-for-zowe-sdk";
 
 const getProfilesCacheMock = jest.fn();
 getProfilesCacheMock.mockReturnValue({
@@ -118,4 +118,32 @@ describe("Test suite for getJobIdForRegion", () => {
     const jobId = await showLogsCommand.getJobIdForRegion(region);
     expect(jobId).toEqual(null);
   });
+});
+
+describe("Check whether profile supports JES", () => {
+  /* Rushabh - i need to mock ZoweVsCodeExtension.getZoweExplorerApi().getJesApi() here
+  jest.mock("@zowe/zowe-explorer-api", () => ({
+    ZoweVsCodeExtension: {
+      static getZoweExplorerApi: () => ({
+        getJesApi: (profile: IProfileLoaded) => {
+          return true; //profile.type === "zosmf";
+        },
+      }),
+    },
+  }));
+  */
+  const supports = createProfile("host1.myzosmf", "zosmf", "h1", "user");
+  const doesntSupport = createProfile("host1.myzosmf", "else", "h1", "user");
+
+  it("connection supports JES", async () => {
+    ZoweVsCodeExtension.getZoweExplorerApi().getJesApi(supports);
+    expect(showLogsCommand.doesConnectionSupportJes(supports)).toEqual(true);
+  });
+  it("connection doesn't support JES", async () => {
+    expect(showLogsCommand.doesConnectionSupportJes(doesntSupport)).toEqual(false);
+  });
+
+  it("connection doesn't support JES", async () => {
+    // throw an exception from getJesApi once i've got the mocking sorted
+  }
 });
