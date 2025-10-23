@@ -11,7 +11,7 @@
 
 import { CicsCmciConstants, ICMCIApiResponse } from "@zowe/cics-for-zowe-sdk";
 import { IProfileLoaded } from "@zowe/imperative";
-import { commands, ProgressLocation, TreeView, window } from "vscode";
+import { ProgressLocation, TreeView, commands, l10n, window } from "vscode";
 import constants from "../../constants/CICS.defaults";
 import { JVMServerMeta } from "../../doc";
 import { ICommandParams } from "../../doc/commands/ICommandParams";
@@ -34,8 +34,8 @@ export function getDisableJVMServerCommand(tree: CICSTree, treeview: TreeView<an
     }
 
     let disableType = await window.showInformationMessage(
-      `Choose how to purge tasks while disabling the JVM server`,
-      ...["Phase Out", "Purge", "Force Purge", "Kill"]
+      l10n.t("Choose how to purge tasks while disabling the JVM server"),
+      ...[l10n.t("Phase Out"), l10n.t("Purge"), l10n.t("Force Purge"), l10n.t("Kill")]
     );
     if (!disableType) {
       return;
