@@ -11,7 +11,7 @@
 
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 
-import { extensions, l10n, LogLevel, LogOutputChannel, window } from "vscode";
+import { extensions, l10n, LogOutputChannel, window } from "vscode";
 
 export class CICSLogger {
   private static logOutputChannel: LogOutputChannel;
@@ -24,13 +24,14 @@ export class CICSLogger {
     const packageJSON = extensions.getExtension("zowe.cics-extension-for-zowe").packageJSON;
 
     CICSLogger.info(`${packageJSON.displayName as string} ${packageJSON.version as string}`);
-    CICSLogger.info(
-      l10n.t({
-        message: "Zowe Explorer for IBM CICS TS log level: {0}",
-        args: [LogLevel[this.logOutputChannel.logLevel]],
-        comment: ["Log level"],
-      })
-    );
+    // TODO investigate with enam/andrew - getting e.replace error in french ... i think that's to do with inserts
+    // CICSLogger.info(
+    //   l10n.t({
+    //     message: "Zowe Explorer for IBM CICS TS log level: {0}",
+    //     args: [LogLevel[this.logOutputChannel.logLevel]],
+    //     comment: ["Log level"],
+    //   })
+    // );
   }
 
   public static trace(message: string): void {
